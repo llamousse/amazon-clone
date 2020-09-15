@@ -13,7 +13,7 @@ function Checkout() {
         />
 
         <div>
-          <h2 className="checkoutTitle">Your Shopping Basket</h2>
+          <h2 className="checkoutTitle">Your Shopping Cart</h2>
         </div>
       </div>
 
