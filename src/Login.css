@@ -16,6 +16,7 @@
 }
 
 .loginContainer {
+  background-color: white;
   width: 300px;
   height: fit-content;
   display: flex;
