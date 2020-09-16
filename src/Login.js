@@ -1,29 +1,40 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { auth } from "./firebase";
 
 function Login() {
+  const history = useHistory(); // allows us to programmatically change the URL
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // firebase login function
   const signIn = (e) => {
     e.preventDefault();
 
-    // firebase login stuff here
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((auth) => {
+        history.push("/");
+      })
+      .catch((error) => alert(error.message));
   };
 
+  // firebase register function
   const register = (e) => {
     e.preventDefault();
-
     auth
-        .createUserWithEmailAndPassword(email, password)
-        .then((auth) => {
-            // successfully created new user w/ 
-            console.log(auth);
-        })
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        // successfully created new user w/ email + pw
+        console.log(auth);
 
-    // firebase register here
+        // if user is authenticated, redirect to home page
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -32,6 +43,7 @@ function Login() {
         <img
           className="loginLogo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
+          alt="amazon login logo"
         />
       </Link>
 
