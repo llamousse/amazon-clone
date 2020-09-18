@@ -30,6 +30,7 @@
 }
 
 .paymentAddress,
-.paymentItems {
+.paymentItems,
+.paymentDetails {
   flex: 0.8;
 }
