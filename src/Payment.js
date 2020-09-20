@@ -4,6 +4,8 @@ import { useStateValue } from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
 import { Link } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import CurrencyFormat from "react-currency-format";
+import { getBasketTotal } from "./reducer";
 
 function Payment() {
   const [{ basket, user }] = useStateValue();
@@ -12,12 +14,16 @@ function Payment() {
   const elements = useElements();
 
   const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState("");
   const [disabled, setDisabled] = useState(true);
 
   const handleSubmit = (e) => {};
 
-  const handleChange = (e) => {};
+  const handleChange = (event) => {
+    // listen for changes in the CardElement
+    // display any errors as the customer types their card details
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : "");
+  };
 
   return (
     <div className="payment">
@@ -60,6 +66,24 @@ function Payment() {
           <div className="paymentDetails">
             <form onSubmit={handleSubmit}>
               <CardElement onChange={handleChange} />
+
+              <div className="paymentPriceContainer">
+                <CurrencyFormat
+                  renderText={(value) => (
+                    <>
+                      <h3>Order Total: {value}</h3>
+                    </>
+                  )}
+                  decimalScale={2}
+                  value={getBasketTotal(basket)}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"$"}
+                />
+                <button disabled={processing || disabled || succeeded}>
+                    <span>{processing}</span>
+                </button>
+              </div>
             </form>
           </div>
         </div>
