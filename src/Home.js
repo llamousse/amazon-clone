@@ -15,9 +15,9 @@ function Home() {
         <div className="homeRow">
           <Product
             id="12321341"
-            title="The Lean Startup"
-            price={29.99}
-            image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg"
+            title="Need Wine Right Meow – Cute Funny Cat Stemless Wine Glass"
+            price={16.95}
+            image="https://images-na.ssl-images-amazon.com/images/I/71sPiofVnDL._SL1500_.jpg"
             rating={5}
           />
           <Product
